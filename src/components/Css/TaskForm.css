@@ -1,0 +1,13 @@
+.CloseX {
+    color: green;
+    margin: 0 0 0 0;
+    margin-left: 63%;
+    cursor: pointer;
+    color: red;
+    transition: 0.4s;
+}
+
+.CloseX:hover {
+    background: black;
+    color: white;
+}

@@ -54,3 +54,7 @@
     margin: 0.4px;
     cursor: pointer;
 }
+
+.row {
+    transition: 0.4s;
+}

@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './Css/TaskForm.css'
 
 class TaskForm extends Component {
     constructor(props) {
@@ -8,18 +9,20 @@ class TaskForm extends Component {
             fontSize: 15 + 'px'
         }
     }
-
+    OnXclickForm=()=>{
+        this.props.onXClick();
+    }
     render() {
         return (
             <div>
 
-                <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                
 
                     <div className="panel panel-danger">
                         <div className="panel-heading">
                             <h3 className="panel-title">
                                 Add Manager
-                                <span className="far fa-window-close text-right"></span>
+                                <span className="far fa-window-close text-right CloseX" onClick={this.OnXclickForm}></span>
                             </h3>
                         </div>
                         <div className="panel-body">
@@ -48,7 +51,7 @@ class TaskForm extends Component {
                         </div>
                     </div>
 
-                </div>
+                
             </div>
         );
     }
