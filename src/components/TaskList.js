@@ -1,12 +1,23 @@
 import React, {Component} from 'react';
+import Taskitem from './TaskItem';
 
 class TaskList extends Component {
 
     render() {
+        var Tasks=this.props.Tasks;
+        console.log('====================================');
+        console.log(Tasks);
+        console.log('====================================');
+      var showTable=Tasks.map((Task,index)=>{
+          console.log('====================================');
+          console.log(Task);
+          console.log('====================================');
+          return <Taskitem key ={index} Task={Task} id={index}/>
+      });
         return (
             <div>
 
-                <table class="table table-bordered table-hover">
+                <table className="table table-bordered table-hover">
                     <thead>
                         <tr>
                             <th>Stt</th>
@@ -35,21 +46,7 @@ class TaskList extends Component {
                                 </select>
                             </td>
                         </tr>
-                        <tr>
-                            <td>1</td>
-
-                            <td>Code ReactJS</td>
-                            <td className="text-center">
-                                <label htmlFor="" className="label label-danger">Active</label>
-                            </td>
-                            <td className="text-center">
-
-                                <button type="button" class="btn btn-warning">Change</button>
-                                <button type="button" class="btn btn-danger">delete</button>
-
-                            </td>
-
-                        </tr>
+                        {showTable}
                     </tbody>
                 </table>
 
