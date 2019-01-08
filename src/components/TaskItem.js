@@ -13,7 +13,15 @@ class Taskitem extends Component {
 
                             <td>{Tasks.name}</td>
                             <td className="text-center">
-                                <label htmlFor="" className="label label-danger">{(Tasks.status) ? "Active" : "Don't Care"}</label>
+<label htmlFor = "" className = {
+    (Tasks.status)
+        ? "laleb label-success"
+        : "laleb label-danger"
+} > {
+    (Tasks.status)
+        ? "Active"
+        : "Don't Care"
+} </label>
                             </td>
                             <td className="text-center">
 

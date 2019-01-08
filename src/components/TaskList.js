@@ -5,13 +5,8 @@ class TaskList extends Component {
 
     render() {
         var Tasks=this.props.Tasks;
-        console.log('====================================');
-        console.log(Tasks);
-        console.log('====================================');
+       
       var showTable=Tasks.map((Task,index)=>{
-          console.log('====================================');
-          console.log(Task);
-          console.log('====================================');
           return <Taskitem key ={index} Task={Task} id={index}/>
       });
         return (

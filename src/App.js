@@ -59,11 +59,25 @@ class App extends Component {
   GenarateID = () => {
     return this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4();
   }
+  onSubmitForms=(Data)=>{
+    Data.id=this.GenarateID();
+    console.log('====================================');
+    console.log(Data);
+    console.log('====================================');
+    var {tasks}=this.state;
+    tasks.push(Data);
+    this.setState({
+      tasks:tasks
+    });
+    localStorage.setItem("tasks", JSON.stringify(tasks))
+
+    
+  }
   render() {
     var Tasks = this.state.tasks;
     var {isActive} = this.state;
     var ValueCheckTaskForm = isActive
-      ? <TaskForm onXClick={this.onXClick}/>
+      ? <TaskForm onXClick={this.onXClick} onSubmitForms={this.onSubmitForms}/>
       : '';
 
     return (
