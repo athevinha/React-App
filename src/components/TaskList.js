@@ -2,12 +2,18 @@ import React, {Component} from 'react';
 import Taskitem from './TaskItem';
 
 class TaskList extends Component {
-
+    onGetData=(id)=>{
+        this.props.onGetData(id);
+    }
+    onUpdateStatus=(id)=>{
+        this.props.onUpdateStatus(id);
+    }
     render() {
         var Tasks=this.props.Tasks;
+
        
       var showTable=Tasks.map((Task,index)=>{
-          return <Taskitem key ={index} Task={Task} id={index}/>
+          return <Taskitem key ={index} Task={Task} id={index} onGetData= {this.onGetData} onUpdateStatus={this.onUpdateStatus}/>
       });
         return (
             <div>

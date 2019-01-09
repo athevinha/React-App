@@ -19,59 +19,45 @@ class App extends Component {
       this.setState({tasks: tasksS})
     }
   }
-
-  onGenarate = () => {
-
-    var taskList = [
-      {
-        id: this.GenarateID(),
-        name: "Learn MachineLearning",
-        status: true
-      }, {
-        id: this.GenarateID(),
-        name: "Learn MachineLearning by ReactJs",
-        status: true
-      }, {
-        id: this.GenarateID(),
-        name: "Learn MachineLearning by Java",
-        status: false
-      }
-    ];
-    this.setState({tasks: taskList});
-    localStorage.setItem("tasks", JSON.stringify(taskList));
-  }
-  AddJobClick=()=>{
+  AddJobClick = () => { //button add job
     this.setState({
       isActive: !this.state.isActive
     });
   }
-  s4 = () => {
+  s4 = () => { //radom math to create id
     return Math.floor((1 + Math.random()) * 0x1000000)
       .toString(16)
       .substring(1)
   }
-  onXClick=()=>{
-    this.setState({
-      isActive: false
-    });
-    
+  onXClick = () => {
+    this.setState({isActive: false});
+
   }
-  GenarateID = () => {
+  onGetData = (id) => { //function delete job
+    var {tasks} = this.state;
+    tasks.splice(id, 1);
+
+    this.setState({tasks: tasks});
+    localStorage.setItem("tasks", JSON.stringify(tasks))
+  }
+
+  GenarateID = () => { //function make id differrent
     return this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4();
   }
-  onSubmitForms=(Data)=>{
-    Data.id=this.GenarateID();
-    console.log('====================================');
-    console.log(Data);
-    console.log('====================================');
-    var {tasks}=this.state;
-    tasks.push(Data);
-    this.setState({
-      tasks:tasks
-    });
-    localStorage.setItem("tasks", JSON.stringify(tasks))
+  onSubmitForms = (Data) => { //submit form for input
+    Data.id = this.GenarateID();
 
-    
+    var {tasks} = this.state;
+    tasks.push(Data);
+    this.setState({tasks: tasks});
+    localStorage.setItem("tasks", JSON.stringify(tasks)) //add the data to the localstorage to save data
+
+  }
+  onUpdateStatus = (id) => {
+    var tasks = this.state.tasks;
+    tasks[id].status = !tasks[id].status;
+
+    this.setState({});
   }
   render() {
     var Tasks = this.state.tasks;
@@ -95,15 +81,18 @@ class App extends Component {
               {ValueCheckTaskForm}
             </div>
 
-            <div className={isActive
+            <div
+              className={isActive
               ? "col-xs-8 col-sm-8 col-md-8 col-lg-8"
               : "col-xs-12 col-sm-12 col-md-12 col-lg-12"}>
               <button className="btn btn-primary" onClick={this.AddJobClick}>Add Job</button>
-              <button className="btn btn-success" onClick={this.onGenarate}>Genarate</button>
               <div className="row mt-15">
                 <Control/>
               </div>
-              <TaskList Tasks={Tasks}/>
+              <TaskList
+                Tasks={Tasks}
+                onGetData={this.onGetData}
+                onUpdateStatus={this.onUpdateStatus}/>
             </div>
 
           </div>

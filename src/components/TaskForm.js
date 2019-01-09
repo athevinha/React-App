@@ -28,15 +28,26 @@ class TaskForm extends Component {
     }
     onFormSubmit=(event)=>{
         event.preventDefault();
-        console.log('====================================');
-        console.log(this.state);
-        console.log('====================================');
-this
-    .props
-    .onSubmitForms(this.state);
+if(this.state.name){
+    this
+        .props
+        .onSubmitForms(this.state);
+    this.setState({
+        name: "",
+        status: false
+    });
+}
+else{
+
+}
 
     }
-
+    onClickDele=()=>{
+        this.setState({
+            name : "",
+            status : false
+        });
+    }
     render() {
         return (
             <div>
@@ -68,7 +79,7 @@ this
                                         <option value={false}>Don't care</option>
                                     </select>
                                 <button className="btn btn-warning" type="submit">Save This Job</button>
-                                    <button className="btn btn-danger" type="">Delete This Job</button>
+                                    <button className="btn btn-danger" type="button" onClick={this.onClickDele}>Delete This Job</button>
 
                                 </div>
 
