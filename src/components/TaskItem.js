@@ -10,6 +10,9 @@ class Taskitem extends Component {
         this.props.onUpdateStatus(id);
        
         }
+        onChangeJob=(id)=>{
+            this.props.onChangeJob(id);
+        }
     render() {
         var Tasks = this.props.Task;
         var id = this.props.id;
@@ -34,7 +37,7 @@ class Taskitem extends Component {
                 </td>
                 <td className="text-center">
 
-                    <button type="button" className="btn btn-warning">Change</button>
+                    <button type="button" className="btn btn-warning" onClick={()=>this.onChangeJob(id)}>Change</button>
                     <button
                         type="button"
                         id={id}

@@ -6,7 +6,8 @@ class TaskForm extends Component {
         super(props);
         this.state = {
             name:"",
-            status:false
+            status:false,
+            id : null
         }
     }
     OnXclickForm=()=>{
@@ -38,7 +39,7 @@ if(this.state.name){
     });
 }
 else{
-
+    alert("Write name Job into the input");
 }
 
     }
@@ -47,7 +48,32 @@ else{
             name : "",
             status : false
         });
+        this.props.onClickDele();
     }
+    componentWillMount=()=> {
+       if(this.state.id !== null){
+           console.log('====================================');
+           console.log("dsaf");
+           console.log('====================================');
+           if (this.props.onChangeJobValue) {
+               var { name, status, id } = this.props.onChangeJobValue;
+               this.setState({
+                   name: name,
+                   status: status,
+                   id: id
+               });
+
+           }
+       }
+       else{
+           this.setState({
+               name: "",
+               status: false
+           });
+
+       }
+   
+}
     render() {
         return (
             <div>
@@ -57,7 +83,7 @@ else{
                     <div className="panel panel-danger">
                         <div className="panel-heading">
                             <h3 className="panel-title">
-                                Add Manager
+                                {this.state.id !== null ? "Update Job " : "Add Job"}
                                 <span className="far fa-window-close text-right CloseX" onClick={this.OnXclickForm}></span>
                             </h3>
                         </div>

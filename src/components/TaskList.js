@@ -8,12 +8,17 @@ class TaskList extends Component {
     onUpdateStatus=(id)=>{
         this.props.onUpdateStatus(id);
     }
+    onChangeJob=(id)=>{
+       
+        this.props.onChangeJob(id);
+
+    }
     render() {
         var Tasks=this.props.Tasks;
 
        
       var showTable=Tasks.map((Task,index)=>{
-          return <Taskitem key ={index} Task={Task} id={index} onGetData= {this.onGetData} onUpdateStatus={this.onUpdateStatus}/>
+          return <Taskitem key ={index} Task={Task} id={index} onGetData= {this.onGetData} onUpdateStatus={this.onUpdateStatus} onChangeJob={this.onChangeJob}/>
       });
         return (
             <div>

@@ -10,7 +10,8 @@ class App extends Component {
     super(props);
     this.state = {
       tasks: [],
-      isActive: true
+      isActive: false,
+      TasksEditing : null
     }
   }
   componentWillMount = () => {
@@ -23,6 +24,7 @@ class App extends Component {
     this.setState({
       isActive: !this.state.isActive
     });
+    
   }
   s4 = () => { //radom math to create id
     return Math.floor((1 + Math.random()) * 0x1000000)
@@ -37,14 +39,15 @@ class App extends Component {
     var {tasks} = this.state;
     tasks.splice(id, 1);
 
-    this.setState({tasks: tasks});
+    this.setState({tasks: tasks,});
     localStorage.setItem("tasks", JSON.stringify(tasks))
   }
 
   GenarateID = () => { //function make id differrent
     return this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4();
   }
-  onSubmitForms = (Data) => { //submit form for input
+  onSubmitForms = (Data) => { 
+    this.setState({isActive:false})//submit form for input
     Data.id = this.GenarateID();
 
     var {tasks} = this.state;
@@ -57,13 +60,29 @@ class App extends Component {
     var tasks = this.state.tasks;
     tasks[id].status = !tasks[id].status;
 
-    this.setState({});
+    this.setState({tasks:tasks});
+    localStorage.setItem("tasks", JSON.stringify(tasks))
+  }
+  onClickDele=()=>{
+    this.setState({
+      status: false
+    })
+  }
+  onChangeJob=(id)=>{
+   
+    var TaskEdit= this.state.tasks[id];
+   
+    this.setState({
+TasksEditing : TaskEdit,
+isActive : true
+    })
+
   }
   render() {
     var Tasks = this.state.tasks;
     var {isActive} = this.state;
     var ValueCheckTaskForm = isActive
-      ? <TaskForm onXClick={this.onXClick} onSubmitForms={this.onSubmitForms}/>
+      ? <TaskForm onXClick={this.onXClick} onSubmitForms={this.onSubmitForms} onClickDele={this.onClickDele} onChangeJobValue={this.state.TasksEditing} />
       : '';
 
     return (
@@ -92,7 +111,8 @@ class App extends Component {
               <TaskList
                 Tasks={Tasks}
                 onGetData={this.onGetData}
-                onUpdateStatus={this.onUpdateStatus}/>
+                onUpdateStatus={this.onUpdateStatus}
+                onChangeJob={this.onChangeJob}/>
             </div>
 
           </div>

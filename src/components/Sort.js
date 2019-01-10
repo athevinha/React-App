@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-
+import React, {Component} from 'react';
 
 class Sort extends Component {
 
@@ -17,29 +16,29 @@ class Sort extends Component {
                         aria-haspopup="true"
                         aria-expanded="false">
                         Dropdown buttons
-                            <span className="fas fa-sort-down ml-5"></span>
+                        <span className="fas fa-sort-down ml-5"></span>
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                         <li>
-                            <a role="button" className="sort_selected">
+                            <a role="button" className="sort_selected" href="#">
                                 A-Z
-                                </a>
+                            </a>
                         </li>
                         <li>
-                            <a role="button">
+                            <a role="button" href="#">
                                 Z-A
-                                </a>
+                            </a>
                         </li>
                         <li role="separator" className="divider"></li>
                         <li>
-                            <a role="button">
+                            <a role="button" href="#">
                                 Action point
-                                </a>
+                            </a>
                         </li>
                         <li>
-                            <a role="button">
+                            <a role="button" href="#">
                                 Don't Action point
-                                </a>
+                            </a>
                         </li>
                     </ul>
                 </div>
