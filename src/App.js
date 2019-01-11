@@ -21,10 +21,23 @@ class App extends Component {
     }
   }
   AddJobClick = () => { //button add job
-    this.setState({
-      isActive: !this.state.isActive
-    });
-    
+ if(this.state.isActive ===true && this.state.TasksEditing !== null) 
+ {
+   console.log('====================================');
+   console.log("th1");
+   console.log('====================================');
+   this.setState({
+     TasksEditing: null
+
+   });
+ }
+ else{
+this.setState({
+  isActive: !this.state.isActive,
+  TasksEditing: null
+
+});
+ }
   }
   s4 = () => { //radom math to create id
     return Math.floor((1 + Math.random()) * 0x1000000)
@@ -46,32 +59,47 @@ class App extends Component {
   GenarateID = () => { //function make id differrent
     return this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4() + "-" + this.s4();
   }
-  onSubmitForms = (Data) => { 
+  FindIndex =(id)=>{// find the index by have the id 
+    for(var i = 0 ; i < this.state.tasks.length ; i++){
+      if(id==this.state.tasks [i].id){
+        return i ;
+      }
+    }
+  }
+  onSubmitForms = (Data) => { // click save data
+var {tasks} = this.state;
     this.setState({isActive:false})//submit form for input
-    Data.id = this.GenarateID();
+if(Data.id === null){
+   Data.id = this.GenarateID();
+   tasks.push(Data);
 
-    var {tasks} = this.state;
-    tasks.push(Data);
+   
+}
+else{
+  console.log(this.FindIndex(Data.id));
+  tasks[this.FindIndex(Data.id)] = Data;
+}
+
     this.setState({tasks: tasks});
+    this.setState({ TasksEditing: null });
+
     localStorage.setItem("tasks", JSON.stringify(tasks)) //add the data to the localstorage to save data
 
   }
-  onUpdateStatus = (id) => {
+  onUpdateStatus = (id) => {// click acive or don't care 
     var tasks = this.state.tasks;
     tasks[id].status = !tasks[id].status;
 
     this.setState({tasks:tasks});
     localStorage.setItem("tasks", JSON.stringify(tasks))
   }
-  onClickDele=()=>{
+  onClickDele=()=>{// delete click
     this.setState({
       status: false
     })
   }
-  onChangeJob=(id)=>{
-   
+  onChangeJob=(id)=>{//change Job , change click
     var TaskEdit= this.state.tasks[id];
-   
     this.setState({
 TasksEditing : TaskEdit,
 isActive : true

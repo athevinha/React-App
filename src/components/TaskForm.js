@@ -51,10 +51,7 @@ else{
         this.props.onClickDele();
     }
     componentWillMount=()=> {
-       if(this.state.id !== null){
-           console.log('====================================');
-           console.log("dsaf");
-           console.log('====================================');
+    
            if (this.props.onChangeJobValue) {
                var { name, status, id } = this.props.onChangeJobValue;
                this.setState({
@@ -64,15 +61,14 @@ else{
                });
 
            }
-       }
-       else{
-           this.setState({
-               name: "",
-               status: false
-           });
-
-       }
-   
+}
+componentWillReceiveProps=(nextProps)=>{
+    var { name, status, id } = nextProps.onChangeJobValue;
+    this.setState({
+        name: name,
+        status: status,
+        id: id
+    });
 }
     render() {
         return (
