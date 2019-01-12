@@ -14,7 +14,7 @@ class App extends Component {
       TasksEditing: null
     }
   }
-  // =================================================
+  // ==================================================
   // =================================================
   componentWillMount = () => { //went it run => this func run 
     if (localStorage && localStorage.getItem("tasks")) {
