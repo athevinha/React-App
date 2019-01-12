@@ -47,7 +47,7 @@ else{
         this.setState({
             name : "",
             status : false
-        });
+        })
         this.props.onClickDele();
     }
     componentWillMount=()=> {

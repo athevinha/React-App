@@ -13,12 +13,21 @@ class TaskList extends Component {
         this.props.onChangeJob(id);
 
     }
+    onReturn = (Task,index)=>{//contact with app.js
+        if(index !== null){
+            return <Taskitem key={index} Task={Task} id={index} onGetData={this.onGetData} onUpdateStatus={this.onUpdateStatus} onChangeJob={this.onChangeJob} />
+
+        }
+        else{
+
+        }
+        }
     render() {
         var Tasks=this.props.Tasks;
 
        
       var showTable=Tasks.map((Task,index)=>{
-          return <Taskitem key ={index} Task={Task} id={index} onGetData= {this.onGetData} onUpdateStatus={this.onUpdateStatus} onChangeJob={this.onChangeJob}/>
+          return this.onReturn(Task,index);
       });
         return (
             <div>

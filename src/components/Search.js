@@ -1,8 +1,28 @@
 import React, { Component } from 'react';
-
+// use in control
 
 class Search extends Component {
-   
+    constructor(props) {
+        super(props);
+        this.state= {
+            value : "",
+            nameInput : ""
+        }
+    }
+    onClickSearch=()=>{
+        this.props.onClickSearch();
+    }
+        onChangeSearch=(event)=>{
+            var target = event.target;
+            var value = target.value;
+            var name = target.name;
+            this.setState({
+                value : value,
+                nameInput : name
+            });
+        this.props.onChangeSearch(target);
+
+    }
     render() {
         return (
 
@@ -12,9 +32,12 @@ class Search extends Component {
                             type="text"
                             className="form-control"
                             id="exampleInputAmount"
-                            placeholder="Search" />
+                            placeholder="Search" 
+                            onChange = {this.onChangeSearch}
+                            name="InputSearch"
+                            value={this.state.value}/>
                         <span className="input-group-btn">
-                            <button type="button" className="btn btn-default">Search</button>
+                            <button type="button" className="btn btn-default" onClick={this.onClickSearch}>Search</button>
                         </span>
                     </div>
                 </div>

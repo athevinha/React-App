@@ -6,16 +6,23 @@ import Sort from './Sort';
 class Control extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            color: 'red',
-            fontSize: 15 + 'px'
-        }
+       this.state={
+            Search : "",
+            Sort : ""
+       }
     }
-
+    onClickSearch=()=>{
+        this.props.onClickSearch(this.state.Search);
+    }
+    onChangeSearch=(Target)=>{
+        this.setState({
+            Search : Target
+        })
+    }
     render() {
         return (
             <div>
-                <Search/>
+                <Search onChangeSearch={this.onChangeSearch} onClickSearch={this.onClickSearch}/>
                 <Sort/>
             </div>
         );
