@@ -63,12 +63,24 @@ else{
            }
 }
 componentWillReceiveProps=(nextProps)=>{
-    var { name, status, id } = nextProps.onChangeJobValue;
-    this.setState({
-        name: name,
-        status: status,
-        id: id
-    });
+    console.log('====================================');
+    console.log(nextProps);
+    console.log('====================================');
+   if(nextProps && nextProps.onChangeJobValue){
+       var { name, status, id } = nextProps.onChangeJobValue;
+       this.setState({
+           name: name,
+           status: status,
+           id: id
+       });
+   }
+   else{
+       this.setState({
+           name : '',
+           status : false,
+           id : null
+       })
+   }
 }
     render() {
         return (
