@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import Search from './Search';
 import Sort from './Sort';
+import TaskList from './TaskList';
 
 
-class Control extends Component {
+class Control extends Component{
     constructor(props) {
         super(props);
        this.state={
@@ -13,6 +14,9 @@ class Control extends Component {
     }
     onClickSearch=()=>{
         this.props.onClickSearch(this.state.Search);
+        console.log('====================================');
+        console.log("hahasdfasds");
+        console.log('====================================');
     }
     onChangeSearch=(Target)=>{
         this.setState({

@@ -5,13 +5,15 @@ import './App.css';
 import Control from './components/Control';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
-class App extends Component {
+class App extends Component{
   constructor(props) {
     super(props);
     this.state = {
       tasks: [],
       isActive: false,
-      TasksEditing: null
+      TasksEditing: null,
+      isSearchBtn : false,
+      TargetSearch : ""
     }
   }
   // =================================================
@@ -116,10 +118,19 @@ class App extends Component {
 // =================================================
 //==================================================
 onClickSearch = (Target)=>{//onSearch on Click the button search in search.js => control.js=>app.js
+  this.setState({
+    isSearchBtn : true,
+    TargetSearch : Target
+  })
   console.log('====================================');
   console.log(Target.value);
   console.log('====================================');
 }
+  onChanged = (filterName, filterStatus) => {
+    console.log('====================================');
+    console.log(filterName + "_" + filterStatus);
+    console.log('====================================');
+  }
   render() {
     var Tasks = this.state.tasks;
     var {isActive} = this.state;
@@ -128,9 +139,9 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
           onXClick={this.onXClick}
           onSubmitForms={this.onSubmitForms}
           onClickDele={this.onClickDele}
-          onChangeJobValue={this.state.TasksEditing}/>
+          onChangeJobValue={this.state.TasksEditing}
+          />
       : '';
-
     return (
       <div>
         <h1 className="text-center">
@@ -158,7 +169,10 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
                 Tasks={Tasks}
                 onGetData={this.onGetData}
                 onUpdateStatus={this.onUpdateStatus}
-                onChangeJob={this.onChangeJob}/>
+                onChangeJob={this.onChangeJob}
+                SearchData={this.state.TargetSearch}
+                ClickSearch={this.state.isSearchBtn}
+                onChanges={this.onChanged}/>
             </div>
 
           </div>

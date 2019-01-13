@@ -1,35 +1,64 @@
 import React, {Component} from 'react';
 import Taskitem from './TaskItem';
-
 class TaskList extends Component {
-    onGetData=(id)=>{
-        this.props.onGetData(id);
+    constructor(props) {
+        super(props);
+        this.state = {
+            isClickSearch: false,
+            SearchData: "",
+            filterName : "",
+            filterStatus : -1
+        }
     }
-    onUpdateStatus=(id)=>{
-        this.props.onUpdateStatus(id);
+    onClickSearch = (target) => {
+        console.log('====================================');
+        console.log(target);
+        console.log('====================================');
     }
-    onChangeJob=(id)=>{
-       
-        this.props.onChangeJob(id);
+    CheckClickSearch = () => {}
+
+    onGetData = (id) => {
+        this
+            .props
+            .onGetData(id);
+    }
+    onUpdateStatus = (id) => {
+        this
+            .props
+            .onUpdateStatus(id);
+    }
+    onChangeJob = (id) => {
+        this
+            .props
+            .onChangeJob(id);
 
     }
-    onReturn = (Task,index)=>{//contact with app.js
-        if(index !== null){
-            return <Taskitem key={index} Task={Task} id={index} onGetData={this.onGetData} onUpdateStatus={this.onUpdateStatus} onChangeJob={this.onChangeJob} />
+    onReturn = (Task, index) => { //contact with app.js
+        
+                return <Taskitem
+                    key={index}
+                    Task={Task}
+                    id={index}
+                    onGetData={this.onGetData}
+                    onUpdateStatus={this.onUpdateStatus}
+                    onChangeJob={this.onChangeJob}/>
 
         }
-        else{
+    onchange=(event)=>{
+        var target = event.target,value=target.value, name= target.name;
+        this.setState({[name] : value});
+        this.props.onChanges(this.state.filterName,this.state.filterStatus);
+    }
 
-        }
-        }
     render() {
-        var Tasks=this.props.Tasks;
+        var Tasks = this.props.Tasks;
 
-       
-      var showTable=Tasks.map((Task,index)=>{
-          return this.onReturn(Task,index);
-      });
+        var showTable = Tasks.map((Task, index) => {
+            return this.onReturn(Task, index);
+        });
+        var {filterName,filterStatus} = this.state;
         return (
+
             <div>
 
                 <table className="table table-bordered table-hover">
@@ -45,10 +74,10 @@ class TaskList extends Component {
                         <tr>
                             <td></td>
                             <td>
-                                <input type="text" placeholder="Name" name="" className="form-control"/>
+                                <input type="text" placeholder="Name" name="filterName" value={filterName} className="form-control" onChange={this.onchange}/>
                             </td>
                             <td>
-                                <select name="" id="" disabled="" className="form-control">
+                                <select name="" id="" disabled="" className="form-control" name="filterStatus"value={filterStatus} onChange={this.onchange}>
                                     <option value={-1}>
                                         All
                                     </option>
