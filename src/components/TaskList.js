@@ -6,8 +6,8 @@ class TaskList extends Component {
         this.state = {
             isClickSearch: false,
             SearchData: "",
-            filterName : "",
-            filterStatus : -1
+            filterName: "",
+            filterStatus: -1
         }
     }
     onClickSearch = (target) => {
@@ -34,20 +34,29 @@ class TaskList extends Component {
 
     }
     onReturn = (Task, index) => { //contact with app.js
-        
-                return <Taskitem
-                    key={index}
-                    Task={Task}
-                    id={index}
-                    onGetData={this.onGetData}
-                    onUpdateStatus={this.onUpdateStatus}
-                    onChangeJob={this.onChangeJob}/>
 
-        }
-    onchange=(event)=>{
-        var target = event.target,value=target.value, name= target.name;
-        this.setState({[name] : value});
-        this.props.onChanges(this.state.filterName,this.state.filterStatus);
+        return <Taskitem
+            key={index}
+            Task={Task}
+            id={index}
+            onGetData={this.onGetData}
+            onUpdateStatus={this.onUpdateStatus}
+            onChangeJob={this.onChangeJob}/>
+
+    }
+    onchange = (event) => {
+        var target = event.target,
+            value = target.value,
+            name = target.name;
+        this.setState({[name]: value});
+        this
+            .props
+            .onChanges(name === "filterName"
+                ? value
+                : this.state.filterName, name === "filterStatus"
+                ? value
+                : this.state.filterStatus);
+        console.log(target.value);
     }
 
     render() {
@@ -56,7 +65,7 @@ class TaskList extends Component {
         var showTable = Tasks.map((Task, index) => {
             return this.onReturn(Task, index);
         });
-        var {filterName,filterStatus} = this.state;
+        var {filterName, filterStatus} = this.state;
         return (
 
             <div>
@@ -74,10 +83,23 @@ class TaskList extends Component {
                         <tr>
                             <td></td>
                             <td>
-                                <input type="text" placeholder="Name" name="filterName" value={filterName} className="form-control" onChange={this.onchange}/>
+                                <input
+                                    type="text"
+                                    placeholder="Name"
+                                    name="filterName"
+                                    value={filterName}
+                                    className="form-control"
+                                    onChange={this.onchange}/>
                             </td>
                             <td>
-                                <select name="" id="" disabled="" className="form-control" name="filterStatus"value={filterStatus} onChange={this.onchange}>
+                                <select
+                                    name=""
+                                    id=""
+                                    disabled=""
+                                    className="form-control"
+                                    name="filterStatus"
+                                    value={filterStatus}
+                                    onChange={this.onchange}>
                                     <option value={-1}>
                                         All
                                     </option>

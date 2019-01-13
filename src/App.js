@@ -13,7 +13,11 @@ class App extends Component{
       isActive: false,
       TasksEditing: null,
       isSearchBtn : false,
-      TargetSearch : ""
+      TargetSearch : "",
+      filter : {
+        filterName : "",
+        filterStatus : ""
+      }
     }
   }
   // =================================================
@@ -122,14 +126,18 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
     isSearchBtn : true,
     TargetSearch : Target
   })
-  console.log('====================================');
-  console.log(Target.value);
-  console.log('====================================');
+ 
 }
   onChanged = (filterName, filterStatus) => {
-    console.log('====================================');
-    console.log(filterName + "_" + filterStatus);
-    console.log('====================================');
+    filterStatus = parseInt(filterStatus, 10);
+    console.log(filterStatus);
+
+    this.setState({
+      filter:{
+        filterName : filterName,
+        filterStatus : filterStatus
+      }
+    })
   }
   render() {
     var Tasks = this.state.tasks;
@@ -142,6 +150,21 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
           onChangeJobValue={this.state.TasksEditing}
           />
       : '';
+      var {filter} = this.state;
+      if(filter){if(filter.filterName){
+        Tasks = Tasks.filter((task) => {
+          return task.name.toLowerCase().indexOf(filter.filterName.toLowerCase()) !== -1;
+        })
+      }
+      Tasks=Tasks.filter((task)=>{
+         if(filter.filterStatus == -1){
+           return task
+         }
+         else{
+           return task.status === (filter.filterStatus === 1 ? true : false);
+         }
+       })
+    }
     return (
       <div>
         <h1 className="text-center">
