@@ -122,6 +122,9 @@ class App extends Component{
 // =================================================
 //==================================================
 onClickSearch = (Target)=>{//onSearch on Click the button search in search.js => control.js=>app.js
+  console.log('====================================');
+  console.log(Target);
+  console.log('====================================');
   this.setState({
     isSearchBtn : true,
     TargetSearch : Target
@@ -164,6 +167,14 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
            return task.status === (filter.filterStatus === 1 ? true : false);
          }
        })
+    }
+    if(this.state.TargetSearch){
+      console.log('====================================');
+      console.log(this.state.TargetSearch);
+      console.log('====================================');
+      Tasks=Tasks.filter((task)=>{
+        return task.name.toLowerCase().indexOf(this.state.TargetSearch.value.toLowerCase()) !== -1;
+      })
     }
     return (
       <div>
