@@ -17,6 +17,10 @@ class App extends Component{
       filter : {
         filterName : "",
         filterStatus : ""
+      },
+      sort:{
+        NameSort : "",
+        StatusSort : 1
       }
     }
   }
@@ -142,6 +146,18 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
       }
     })
   }
+  onClickSort=(NameSort,ValueSort)=>{
+    console.log('====================================');
+    console.log(NameSort + " + " + ValueSort);
+    console.log('====================================');
+    this.setState({
+      sort:{
+        NameSort : NameSort , 
+StatusSort : ValueSort
+      }
+    })
+
+  }
   render() {
     var Tasks = this.state.tasks;
     var {isActive} = this.state;
@@ -160,7 +176,7 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
         })
       }
       Tasks=Tasks.filter((task)=>{
-         if(filter.filterStatus == -1){
+         if(filter.filterStatus === -1){
            return task
          }
          else{
@@ -169,11 +185,24 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
        })
     }
     if(this.state.TargetSearch){
-      console.log('====================================');
-      console.log(this.state.TargetSearch);
-      console.log('====================================');
+     
       Tasks=Tasks.filter((task)=>{
         return task.name.toLowerCase().indexOf(this.state.TargetSearch.value.toLowerCase()) !== -1;
+      })
+    }
+    if (this.state.sort.NameSort === "name") {
+      Tasks.sort((a, b) => {
+     
+        if (a.name > b.name) return this.state.sort.StatusSort;
+        else if (a.name < b.name) return -this.state.sort.StatusSort;
+        else return 0;
+      })
+    }
+    else {
+      Tasks.sort((a, b) => {
+        if (a.status > b.status) return -this.state.sort.StatusSort;
+        else if (a.status < b.status) return this.state.sort.StatusSort;
+        else return 0;
       })
     }
     return (
@@ -197,7 +226,7 @@ onClickSearch = (Target)=>{//onSearch on Click the button search in search.js =>
               : "col-xs-12 col-sm-12 col-md-12 col-lg-12"}>
               <button className="btn btn-primary" onClick={this.AddJobClick}>Add Job</button>
               <div className="row mt-15">
-                <Control onClickSearch={this.onClickSearch}/>{/*Manager Search or Sort*/}
+                <Control onClickSearch={this.onClickSearch} onClickSort={this.onClickSort}/>{/*Manager Search or Sort*/}
               </div>
               <TaskList
                 Tasks={Tasks}

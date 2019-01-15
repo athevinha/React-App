@@ -12,6 +12,10 @@ class Control extends Component{
             Sort : ""
        }
     }
+    onClickSort=(NameSort,ValueSort)=>{
+        this.props.onClickSort(NameSort,ValueSort);
+
+    }
     onClickSearch=()=>{
         this.props.onClickSearch(this.state.Search);
         console.log('====================================');
@@ -27,7 +31,7 @@ class Control extends Component{
         return (
             <div>
                 <Search onChangeSearch={this.onChangeSearch} onClickSearch={this.onClickSearch}/>
-                <Sort/>
+                <Sort onClickSort = {this.onClickSort}/>
             </div>
         );
     }

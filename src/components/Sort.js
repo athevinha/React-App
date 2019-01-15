@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 
 class Sort extends Component {
-
+    onClickSort=(NameSort,ValueSort)=>{
+        this.props.onClickSort(NameSort,ValueSort);
+        
+    }
     render() {
         return (
 
@@ -19,24 +22,24 @@ class Sort extends Component {
                         <span className="fas fa-sort-down ml-5"></span>
                     </button>
                     <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                        <li>
-                            <a role="button" className="sort_selected" href="#">
+                        <li onClick = {()=> this.onClickSort("name",1)}>
+                            <a role="button" className="sort_selected" >
                                 A-Z
                             </a>
                         </li>
-                        <li>
-                            <a role="button" href="#">
+                        <li onClick = {()=>this.onClickSort("name", -1)}>
+                            <a role="button"  >
                                 Z-A
                             </a>
                         </li>
-                        <li role="separator" className="divider"></li>
-                        <li>
-                            <a role="button" href="#">
+                        <li  role="separator" className="divider"></li>
+                        <li onClick={() => this.onClickSort("status", 1)}>
+                            <a role="button" >
                                 Action point
                             </a>
                         </li>
-                        <li>
-                            <a role="button" href="#">
+                        <li onClick={()=>this.onClickSort("status", -1)}>
+                            <a role="button" >
                                 Don't Action point
                             </a>
                         </li>
