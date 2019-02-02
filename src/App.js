@@ -5,28 +5,28 @@ import './App.css';
 import Control from './components/Control';
 import TaskForm from './components/TaskForm';
 import TaskList from './components/TaskList';
-class App extends Component{
+class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
       tasks: [],
       isActive: false,
       TasksEditing: null,
-      isSearchBtn : false,
-      TargetSearch : "",
-      filter : {
-        filterName : "",
-        filterStatus : ""
+      isSearchBtn: false,
+      TargetSearch: "",
+      filter: {
+        filterName: "",
+        filterStatus: ""
       },
-      sort:{
-        NameSort : "",
-        StatusSort : 1
+      sort: {
+        NameSort: "",
+        StatusSort: 1
       }
     }
   }
   // =================================================
   // =================================================
-  componentWillMount = () => { //went it run => this func run 
+  componentWillMount = () => { //went it run => this func run
     if (localStorage && localStorage.getItem("tasks")) {
       var tasksS = JSON.parse(localStorage.getItem("tasks"));
       this.setState({tasks: tasksS})
@@ -55,13 +55,13 @@ class App extends Component{
   }
   // =================================================
   // //=================================================
-  onXClick = () => {//onClick X to close TaskForm
+  onXClick = () => { //onClick X to close TaskForm
     this.setState({isActive: false});
 
   }
   // =================================================
   // //=================================================
-  onGetData = (id) => { //function delete job
+  onGetData = (id) => { //function delete job this is in app.js
     var {tasks} = this.state;
     tasks.splice(id, 1);
 
@@ -123,37 +123,34 @@ class App extends Component{
     this.setState({TasksEditing: TaskEdit, isActive: true})
 
   }
-// =================================================
-//==================================================
-onClickSearch = (Target)=>{//onSearch on Click the button search in search.js => control.js=>app.js
-  console.log('====================================');
-  console.log(Target);
-  console.log('====================================');
-  this.setState({
-    isSearchBtn : true,
-    TargetSearch : Target
-  })
- 
-}
+  // =================================================
+  // ==================================================
+  onClickSearch = (Target) => { //onSearch on Click the button search in search.js => control.js=>app.js
+    console.log('====================================');
+    console.log(Target);
+    console.log('====================================');
+    this.setState({isSearchBtn: true, TargetSearch: Target})
+
+  }
   onChanged = (filterName, filterStatus) => {
     filterStatus = parseInt(filterStatus, 10);
     console.log(filterStatus);
 
     this.setState({
-      filter:{
-        filterName : filterName,
-        filterStatus : filterStatus
+      filter: {
+        filterName: filterName,
+        filterStatus: filterStatus
       }
     })
   }
-  onClickSort=(NameSort,ValueSort)=>{
+  onClickSort = (NameSort, ValueSort) => {
     console.log('====================================');
     console.log(NameSort + " + " + ValueSort);
     console.log('====================================');
     this.setState({
-      sort:{
-        NameSort : NameSort , 
-StatusSort : ValueSort
+      sort: {
+        NameSort: NameSort,
+        StatusSort: ValueSort
       }
     })
 
@@ -166,44 +163,58 @@ StatusSort : ValueSort
           onXClick={this.onXClick}
           onSubmitForms={this.onSubmitForms}
           onClickDele={this.onClickDele}
-          onChangeJobValue={this.state.TasksEditing}
-          />
+          onChangeJobValue={this.state.TasksEditing}/>
       : '';
-      var {filter} = this.state;
-      if(filter){if(filter.filterName){
+    var {filter} = this.state;
+    if (filter) {
+      if (filter.filterName) {
         Tasks = Tasks.filter((task) => {
-          return task.name.toLowerCase().indexOf(filter.filterName.toLowerCase()) !== -1;
+          return task
+            .name
+            .toLowerCase()
+            .indexOf(filter.filterName.toLowerCase()) !== -1;
         })
       }
-      Tasks=Tasks.filter((task)=>{
-         if(filter.filterStatus === -1){
-           return task
-         }
-         else{
-           return task.status === (filter.filterStatus === 1 ? true : false);
-         }
-       })
+      Tasks = Tasks.filter((task) => {
+        if (filter.filterStatus === -1) {
+          return task
+        } else {
+          return task.status === (filter.filterStatus === 1
+            ? true
+            : false);
+        }
+      })
     }
-    if(this.state.TargetSearch){
-     
-      Tasks=Tasks.filter((task)=>{
-        return task.name.toLowerCase().indexOf(this.state.TargetSearch.value.toLowerCase()) !== -1;
+    if (this.state.TargetSearch) {
+
+      Tasks = Tasks.filter((task) => {
+        return task
+          .name
+          .toLowerCase()
+          .indexOf(this.state.TargetSearch.value.toLowerCase()) !== -1;
       })
     }
     if (this.state.sort.NameSort === "name") {
       Tasks.sort((a, b) => {
-     
-        if (a.name > b.name) return this.state.sort.StatusSort;
-        else if (a.name < b.name) return -this.state.sort.StatusSort;
-        else return 0;
-      })
-    }
-    else {
+
+        if (a.name > b.name) 
+          return this.state.sort.StatusSort;
+        else if (a.name < b.name) 
+          return -this.state.sort.StatusSort;
+        else 
+          return 0;
+        }
+      )
+    } else {
       Tasks.sort((a, b) => {
-        if (a.status > b.status) return -this.state.sort.StatusSort;
-        else if (a.status < b.status) return this.state.sort.StatusSort;
-        else return 0;
-      })
+        if (a.status > b.status) 
+          return -this.state.sort.StatusSort;
+        else if (a.status < b.status) 
+          return this.state.sort.StatusSort;
+        else 
+          return 0;
+        }
+      )
     }
     return (
       <div>
